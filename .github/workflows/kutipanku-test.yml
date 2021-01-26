@@ -1,4 +1,4 @@
-name: Lazarus CI
+name: Kutipanku CI
 
 on:
   push:
@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: 12.x
       - name: Setup and run tests
-        working-directory: ./lazarus-web
+        working-directory: ./
         run: |
           rm -rf node-modules
           yarn install
