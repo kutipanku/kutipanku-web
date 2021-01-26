@@ -84,7 +84,7 @@ export default class IndexPage extends Vue {
   ------------------------------------ */
   async mounted(): Promise<void> {
     await (this as any).$axios
-      .post(`${process.env.API_URL}/graphql`, {
+      .post(`https://portal-inspirasi-be.herokuapp.com/graphql`, {
         query: `query {
         hello
       }`
