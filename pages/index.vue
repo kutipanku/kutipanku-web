@@ -7,7 +7,7 @@
       </div>
       <v-card>
         <v-card-title class="headline">
-          Welcome to the Vuetify + Nuxt.js template
+          Welcome to the Vuetify + Nuxt.js template || {{ greetings }}
         </v-card-title>
         <v-card-text>
           <p>
@@ -62,14 +62,37 @@
   </v-layout>
 </template>
 
-<script>
-import Logo from '~/components/Logo.vue'
-import VuetifyLogo from '~/components/VuetifyLogo.vue'
+<script lang="ts">
+import { Component, Vue } from 'nuxt-property-decorator';
+import Logo from '~/components/Logo.vue';
+import VuetifyLogo from '~/components/VuetifyLogo.vue';
 
-export default {
+@Component({
   components: {
     Logo,
     VuetifyLogo
+  }
+})
+export default class IndexPage extends Vue {
+  /* ------------------------------------
+  => Local State Declaration
+  ------------------------------------ */
+  greetings: string = '';
+
+  /* ------------------------------------
+  => Mounted (Lifecycle)
+  ------------------------------------ */
+  async mounted(): Promise<void> {
+    await (this as any).$axios
+      .post(`${process.env.API_URL}/graphql`, {
+        query: `query {
+        hello
+      }`
+      })
+      .then((res: any) => {
+        console.warn(res);
+        this.greetings = res.data.data.hello;
+      });
   }
 }
 </script>

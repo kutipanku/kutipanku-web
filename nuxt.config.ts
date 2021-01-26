@@ -1,7 +1,7 @@
-import colors from 'vuetify/es5/util/colors'
+import colors from 'vuetify/es5/util/colors';
 
 export default {
-  mode: 'universal',
+  ssr: true,
   /*
    ** Headers of the page
    */
@@ -78,6 +78,5 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {}
   }
-}
+};
