@@ -83,16 +83,20 @@ export default class IndexPage extends Vue {
   => Mounted (Lifecycle)
   ------------------------------------ */
   async mounted(): Promise<void> {
-    await (this as any).$axios
-      .post(`https://portal-inspirasi-be.herokuapp.com/graphql`, {
-        query: `query {
-        hello
-      }`
-      })
-      .then((res: any) => {
-        console.warn(res);
-        this.greetings = res.data.data.hello;
-      });
+    try {
+      await (this as any).$axios
+        .post(`https://portal-inspirasi-be.herokuapp.com/graphql`, {
+          query: `query {
+          hello
+        }`
+        })
+        .then((res: any) => {
+          console.warn(res);
+          this.greetings = res.data.data.hello;
+        });
+    } catch (err) {
+      console.warn(err);
+    }
   }
 }
 </script>

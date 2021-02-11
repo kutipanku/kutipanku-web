@@ -88,3 +88,7 @@ sw.*
 
 # Vim swap files
 *.swp
+
+# robots --> The file doesn’t need to be committed
+# since it will be generated as part of your build process
+static/robots.txt

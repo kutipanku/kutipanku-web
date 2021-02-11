@@ -1,12 +1,6 @@
 <template>
   <v-app dark>
-    <v-navigation-drawer
-      v-model="drawer"
-      :mini-variant="miniVariant"
-      :clipped="clipped"
-      fixed
-      app
-    >
+    <v-navigation-drawer v-model="drawer" :mini-variant="miniVariant" fixed app>
       <v-list>
         <v-list-item
           v-for="(item, i) in items"
@@ -87,7 +81,7 @@ export default {
       right: true,
       rightDrawer: false,
       title: 'Vuetify.js'
-    }
+    };
   }
-}
+};
 </script>

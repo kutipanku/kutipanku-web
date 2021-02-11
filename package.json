@@ -5,7 +5,7 @@
   "author": "trastanechora",
   "private": true,
   "scripts": {
-    "dev": "nuxt-ts --spa",
+    "dev": "nuxt-ts",
     "build": "nuxt-ts build",
     "generate": "nuxt-ts generate",
     "start": "nuxt-ts start",
