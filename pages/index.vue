@@ -43,6 +43,39 @@
             <em><small>&mdash; John Leider</small></em>
           </div>
           <hr class="my-3" />
+          <p>
+            Vuetify is a progressive Material Design component framework for
+            Vue.js. It was designed to empower developers to create amazing
+            applications.
+          </p>
+          <p>
+            For more information on Vuetify, check out the
+            <a href="https://vuetifyjs.com" target="_blank"> documentation </a>.
+          </p>
+          <p>
+            If you have questions, please join the official
+            <a href="https://chat.vuetifyjs.com/" target="_blank" title="chat">
+              discord </a
+            >.
+          </p>
+          <p>
+            Find a bug? Report it on the github
+            <a
+              href="https://github.com/vuetifyjs/vuetify/issues"
+              target="_blank"
+              title="contribute"
+            >
+              issue board </a
+            >.
+          </p>
+          <p>
+            Thank you for developing with Vuetify and I look forward to bringing
+            more exciting features in the future.
+          </p>
+          <div class="text-xs-right">
+            <em><small>&mdash; John Leider</small></em>
+          </div>
+          <hr class="my-3" />
           <a href="https://nuxtjs.org/" target="_blank">
             Nuxt Documentation
           </a>
@@ -71,6 +104,70 @@ import VuetifyLogo from '~/components/VuetifyLogo.vue';
   components: {
     Logo,
     VuetifyLogo
+  },
+  head(this: IndexPage) {
+    const title = 'Kutipanku';
+    const meta = [
+      {
+        hid: 'title',
+        name: 'title',
+        content: this.title
+      },
+      {
+        hid: 'description',
+        name: 'description',
+        content: this.description
+      },
+      {
+        hid: 'twitter:title',
+        name: 'twitter:title',
+        content: this.title
+      },
+      {
+        hid: 'twitter:description',
+        name: 'twitter:description',
+        content: this.description
+      },
+      {
+        hid: 'twitter:image',
+        name: 'twitter:image',
+        content: this.image
+      },
+      {
+        hid: 'twitter:image:alt',
+        name: 'twitter:image:alt',
+        content: this.title
+      },
+      {
+        hid: 'og:title',
+        property: 'og:title',
+        content: this.title
+      },
+      {
+        hid: 'og:description',
+        property: 'og:description',
+        content: this.description
+      },
+      {
+        hid: 'og:image',
+        property: 'og:image',
+        content: this.image
+      },
+      {
+        hid: 'og:image:secure_url',
+        property: 'og:image:secure_url',
+        content: this.image
+      },
+      {
+        hid: 'og:image:alt',
+        property: 'og:image:alt',
+        content: this.title
+      }
+    ];
+    return {
+      title,
+      meta
+    };
   }
 })
 export default class IndexPage extends Vue {
@@ -78,6 +175,9 @@ export default class IndexPage extends Vue {
   => Local State Declaration
   ------------------------------------ */
   greetings: string = '';
+  title: string = 'Kutipanku';
+  description: string = 'Kumpulan kutipan terlengkap!';
+  image: string = '~/assets/nuxt-card.png';
 
   /* ------------------------------------
   => Mounted (Lifecycle)
