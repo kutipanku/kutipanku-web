@@ -4,6 +4,7 @@
   "description": "Kutipanku.id client side app",
   "author": "trastanechora",
   "private": false,
+  "license": "BSD-3-Clause",
   "scripts": {
     "dev": "nuxt-ts",
     "build": "nuxt-ts build",

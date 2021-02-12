@@ -167,7 +167,7 @@ import VuetifyLogo from '~/components/VuetifyLogo.vue';
     const link = [
       {
         rel: 'canonical',
-        href: 'https://kutipanku.id' + this.$route.path
+        href: process.env.DOMAIN_URL + this.$route.path
       }
     ];
     return {
@@ -184,13 +184,12 @@ export default class IndexPage extends Vue {
   greetings: string = '';
   title: string = 'Kutipanku';
   description: string = 'Kumpulan kutipan terlengkap!';
-  image: string = '/nuxt-card.png';
+  image: string = `${process.env.DOMAIN_URL}/nuxt-card.png`;
 
   /* ------------------------------------
   => Mounted (Lifecycle)
   ------------------------------------ */
   async mounted(): Promise<void> {
-    console.warn('path', this.$route);
     try {
       await (this as any).$axios
         .post(`https://portal-inspirasi-be.herokuapp.com/graphql`, {
