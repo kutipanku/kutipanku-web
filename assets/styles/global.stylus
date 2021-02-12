@@ -1,0 +1,32 @@
+main.background-canvas {
+  background-color: var(--v-background-base);
+}
+main > div > div > div.flex.content-wrapper {
+  width: 100%;
+  max-width: 480px;
+  background-color: #ffffff;
+}
+footer {
+  background-color: var(--v-background-base) !important;
+}
+
+body .pac-container {
+  top: 44px;
+  max-width: 480px;
+  width: 100% !important;
+  left: 0 !important;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 41px;
+  .pac-item {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+body .pac-logo:after {
+  display: none;
+}
