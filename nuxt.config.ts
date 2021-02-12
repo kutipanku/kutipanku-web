@@ -45,6 +45,16 @@ export default {
     // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv'
   ],
+  // @nuxtjs/pwa module configuration
+  pwa: {
+    manifest: {
+      name: 'Kutipanku',
+      lang: 'id',
+      useWebmanifestExtension: false,
+      start_url: '/', // eslint-disable-line @typescript-eslint/camelcase
+      theme_color: 'FF6666' // eslint-disable-line @typescript-eslint/camelcase
+    }
+  },
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options

@@ -209,7 +209,7 @@ export default class IndexPage extends Vue {
   greetings: string = '';
   title: string = 'Kutipanku';
   description: string = 'Kumpulan kutipan terlengkap!';
-  image: string = `${process.env.DOMAIN_URL}/nuxt-card.png`;
+  image: string = `${process.env.DOMAIN_URL}/og-image.png`;
 
   /* ------------------------------------
   => Mounted (Lifecycle)
