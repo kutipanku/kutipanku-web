@@ -164,9 +164,16 @@ import VuetifyLogo from '~/components/VuetifyLogo.vue';
         content: this.title
       }
     ];
+    const link = [
+      {
+        rel: 'canonical',
+        href: 'https://kutipanku.id' + this.$route.path
+      }
+    ];
     return {
       title,
-      meta
+      meta,
+      link
     };
   }
 })
@@ -177,12 +184,13 @@ export default class IndexPage extends Vue {
   greetings: string = '';
   title: string = 'Kutipanku';
   description: string = 'Kumpulan kutipan terlengkap!';
-  image: string = '~/assets/nuxt-card.png';
+  image: string = '/nuxt-card.png';
 
   /* ------------------------------------
   => Mounted (Lifecycle)
   ------------------------------------ */
   async mounted(): Promise<void> {
+    console.warn('path', this.$route);
     try {
       await (this as any).$axios
         .post(`https://portal-inspirasi-be.herokuapp.com/graphql`, {
