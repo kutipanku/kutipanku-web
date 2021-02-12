@@ -3,14 +3,15 @@
   "version": "1.0.0",
   "description": "Kutipanku.id client side app",
   "author": "trastanechora",
-  "private": true,
+  "private": false,
   "scripts": {
     "dev": "nuxt-ts",
     "build": "nuxt-ts build",
     "generate": "nuxt-ts generate",
     "start": "nuxt-ts start",
+    "test": "cross-env NODE_ICU_DATA=node_modules/full-icu jest --watchAll=false --coverage",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "test": "jest"
+    "lintfix": "eslint --fix --ext .ts,.vue --ignore-path .gitignore . --ignore-pattern '*.d.ts'"
   },
   "dependencies": {
     "@nuxt/typescript-runtime": "^0.4.0",
@@ -28,12 +29,16 @@
     "@vue/test-utils": "^1.0.0-beta.27",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^24.1.0",
+    "cross-env": "^7.0.3",
     "eslint": "^6.1.0",
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-nuxt": ">=0.4.2",
     "eslint-plugin-prettier": "^3.1.2",
+    "full-icu": "^1.3.1",
     "jest": "^24.1.0",
     "prettier": "^1.19.1",
+    "stylus": "^0.54.8",
+    "stylus-loader": "^4.3.1",
     "ts-jest": "^25.0.0",
     "vue-jest": "^4.0.0-0"
   },
