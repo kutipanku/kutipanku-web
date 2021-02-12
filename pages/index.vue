@@ -139,6 +139,11 @@ import VuetifyLogo from '~/components/VuetifyLogo.vue';
         content: this.title
       },
       {
+        hid: 'twitter:card',
+        name: 'twitter:card',
+        content: 'summary_large_image'
+      },
+      {
         hid: 'og:title',
         property: 'og:title',
         content: this.title
@@ -162,6 +167,26 @@ import VuetifyLogo from '~/components/VuetifyLogo.vue';
         hid: 'og:image:alt',
         property: 'og:image:alt',
         content: this.title
+      },
+      {
+        hid: 'og:site_name',
+        property: 'og:site_name',
+        content: 'Kutipanku'
+      },
+      {
+        hid: 'og:locale',
+        property: 'og:locale',
+        content: 'id_ID'
+      },
+      {
+        hid: 'og:locale:alternate',
+        property: 'og:locale:alternate',
+        content: 'en_US'
+      },
+      {
+        hid: 'og:url',
+        property: 'og:url',
+        content: process.env.DOMAIN_URL + this.$route.path
       }
     ];
     const link = [
