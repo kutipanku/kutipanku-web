@@ -26,7 +26,7 @@ export default {
   /*
    ** Global CSS
    */
-  css: [],
+  css: ['@/assets/styles/global.stylus'],
   /*
    ** Plugins to load before mounting the App
    */
@@ -55,9 +55,10 @@ export default {
    ** https://github.com/nuxt-community/vuetify-module
    */
   vuetify: {
-    customVariables: ['~/assets/variables.scss'],
+    customVariables: ['~/assets/styles/variables.scss'],
     theme: {
       dark: false,
+      options: { customProperties: true },
       themes: {
         dark: {
           primary: colors.blue.darken2,
@@ -66,7 +67,8 @@ export default {
           info: colors.teal.lighten1,
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
-          success: colors.green.accent3
+          success: colors.green.accent3,
+          background: colors.grey.lighten2
         },
         light: {
           primary: colors.blue.darken2,
@@ -75,7 +77,8 @@ export default {
           info: colors.teal.lighten1,
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
-          success: colors.green.accent3
+          success: colors.green.accent3,
+          background: colors.grey.lighten2
         }
       }
     }
