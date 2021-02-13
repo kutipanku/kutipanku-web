@@ -49,10 +49,11 @@ export default {
   pwa: {
     manifest: {
       name: 'Kutipanku',
+      short_name: 'Kutipanku', // eslint-disable-line @typescript-eslint/camelcase
       lang: 'id',
       useWebmanifestExtension: false,
       start_url: '/', // eslint-disable-line @typescript-eslint/camelcase
-      theme_color: 'FF6666' // eslint-disable-line @typescript-eslint/camelcase
+      theme_color: '#ff6666' // eslint-disable-line @typescript-eslint/camelcase
     }
   },
   /*
@@ -81,14 +82,15 @@ export default {
           background: colors.grey.lighten2
         },
         light: {
-          primary: colors.blue.darken2,
+          primary: '#d74046',
           accent: colors.grey.darken3,
           secondary: colors.amber.darken3,
           info: colors.teal.lighten1,
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
           success: colors.green.accent3,
-          background: colors.grey.lighten2
+          background: colors.grey.lighten2,
+          active: '#ff6666'
         }
       }
     }

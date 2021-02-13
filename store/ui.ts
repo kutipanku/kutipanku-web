@@ -33,7 +33,7 @@ export const state = (): UiState => ({
     {
       icon: 'mdi-chat-alert',
       title: 'Saran & Pengaduan',
-      to: '/favorite'
+      to: '/feedback'
     },
     {
       icon: 'mdi-cog',
