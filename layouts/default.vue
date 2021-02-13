@@ -2,6 +2,19 @@
   <v-app dark>
     <v-navigation-drawer :mini-variant="miniVariant" app permanent>
       <v-list>
+        <v-list-item class="px-2">
+          <v-list-item-avatar tile size="40">
+            <KutipankuLogo :size="30" />
+          </v-list-item-avatar>
+
+          <v-list-item-title>Kutipanku</v-list-item-title>
+
+          <!-- <v-btn icon @click.stop="miniVariant = !miniVariant">
+            <v-icon>mdi-chevron-left</v-icon>
+          </v-btn> -->
+        </v-list-item>
+
+        <v-divider></v-divider>
         <v-list-item
           v-for="(item, i) in drawerNavMenu"
           :key="i"
@@ -47,8 +60,13 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
 import { MenuItem } from '../@types';
+import KutipankuLogo from '../components/svg/KutipankuLogo.vue';
 
-@Component
+@Component({
+  components: {
+    KutipankuLogo
+  }
+})
 export default class Default extends Vue {
   miniVariant: boolean = false;
   clipped: boolean = false;
@@ -68,3 +86,12 @@ export default class Default extends Vue {
   }
 }
 </script>
+
+<style lang="stylus" scoped>
+.v-navigation-drawer >>> .v-list-item--active {
+  color: var(--v-active-base);
+}
+.background-canvas {
+  padding-left: 56px !important;
+}
+</style>
