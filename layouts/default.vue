@@ -1,6 +1,6 @@
 <template>
   <v-app dark>
-    <v-navigation-drawer :mini-variant="miniVariant" app permanent>
+    <v-navigation-drawer :mini-variant="miniVariant" app permanent touchless>
       <v-list>
         <v-list-item class="px-2">
           <v-list-item-avatar tile size="40">
