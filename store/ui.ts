@@ -16,7 +16,7 @@ export const state = (): UiState => ({
       to: '/random'
     },
     {
-      icon: 'mdi-magnify',
+      icon: 'mdi-earth',
       title: 'Jelajah',
       to: '/explore'
     },
