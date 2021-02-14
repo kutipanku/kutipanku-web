@@ -3,13 +3,28 @@
     <v-flex xs12 sm8 md6>
       <v-card dark tile class="home-banner">
         <v-card-title>
-          <span class="title font-weight-bold">Selamat Pagi!</span> <br />
-          <small class="font-weight-light">Semoga harimu indah :)</small>
+          <v-layout wrap>
+            <v-flex xs12
+              ><span class="title font-weight-bold">Selamat Pagi!</span></v-flex
+            >
+            <v-flex xs12 class="greetings"
+              ><small class="font-weight-light"
+                >Semoga harimu indah :)</small
+              ></v-flex
+            >
+          </v-layout>
         </v-card-title>
 
-        <v-card-text class="font-weight-bold">
-          “The first step is to establish that something is possible; then
-          probability will occur.”
+        <v-card-text>
+          <v-layout wrap class="daily-quote pa-2">
+            <v-flex xs12>
+              “The first step is to establish that something is possible; then
+              probability will occur.”
+            </v-flex>
+            <v-flex xs12 class="font-weight-bold mt-2">
+              - Elon Musk
+            </v-flex>
+          </v-layout>
         </v-card-text>
 
         <v-card-actions>
@@ -30,9 +45,9 @@
         v-for="(item, i) in quoteList"
         :key="i"
         tile
-        class="quote-card pa-2 mt-1 mb-1"
+        class="quote-card pa-2 my-1"
       >
-        <v-card-text>
+        <v-card-text class="quote-content pa-5">
           <v-row>
             <p align="center">
               {{ item.content }}
@@ -49,6 +64,20 @@
         </v-card-text>
       </v-card>
     </v-flex>
+    <v-btn
+      v-show="showScrollToTop"
+      v-scroll="onScroll"
+      fab
+      dark
+      fixed
+      bottom
+      right
+      small
+      color="primary"
+      @click="toTop"
+    >
+      <v-icon small>mdi-arrow-up</v-icon>
+    </v-btn>
   </v-layout>
 </template>
 
@@ -164,6 +193,7 @@ export default class IndexPage extends Vue {
   description: string = 'Kumpulan kutipan terlengkap!';
   image: string = `${process.env.DOMAIN_URL}/og-image.png`;
   quoteList: Quote[] = [];
+  showScrollToTop: boolean = false;
 
   /* ------------------------------------
   => Mounted (Lifecycle)
@@ -185,6 +215,19 @@ export default class IndexPage extends Vue {
     }
     this.quoteList = getHomeQuotes();
   }
+
+  /* ------------------------------------ 
+  => Methods
+  ------------------------------------ */
+  onScroll(e: any): void {
+    if (typeof window === 'undefined') return;
+    const top = window.pageYOffset || e.target.scrollTop || 0;
+    this.showScrollToTop = top > 20;
+  }
+
+  toTop(): void {
+    this.$vuetify.goTo(0);
+  }
 }
 </script>
 
@@ -195,11 +238,20 @@ export default class IndexPage extends Vue {
   >>> .v-card__text {
     padding-bottom: 0;
   }
+  >>> .greetings {
+    margin-top: -8px;
+  }
+  .daily-quote {
+    border: 1px solid var(--v-active-lighten1);
+  }
 }
 .quote-card {
   width: 100%;
   background-image: url(../assets/images/svg/quote-ellipse.svg), url(../assets/images/svg/quote-mark.svg);
   background-position: left bottom, right top;
+  .quote-content {
+    border: 1px solid var(--v-active-lighten4);
+  }
 }
 .v-card__text {
   line-height: 1rem;
