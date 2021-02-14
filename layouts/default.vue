@@ -7,11 +7,10 @@
             <KutipankuLogo :size="30" />
           </v-list-item-avatar>
 
-          <v-list-item-title>Kutipanku</v-list-item-title>
-
-          <!-- <v-btn icon @click.stop="miniVariant = !miniVariant">
-            <v-icon>mdi-chevron-left</v-icon>
-          </v-btn> -->
+          <v-list-item-title
+            ><strong class="primary--text">Kutipanku</strong> <br />
+            <small>Kumpulan kutipan terlengkap!</small></v-list-item-title
+          >
         </v-list-item>
 
         <v-divider></v-divider>
@@ -68,11 +67,7 @@ import KutipankuLogo from '../components/svg/KutipankuLogo.vue';
   }
 })
 export default class Default extends Vue {
-  miniVariant: boolean = false;
-  clipped: boolean = false;
-  fixed: boolean = false;
-  drawer: boolean = true;
-
+  miniVariant: boolean = true;
   /* ------------------------------------
   => Methods
   ------------------------------------ */
