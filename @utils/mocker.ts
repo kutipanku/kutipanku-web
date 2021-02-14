@@ -19,14 +19,14 @@ export const getHomeQuotes = (): Quote[] => {
       content:
         "Start by doing what's necessary; then do what's possible; and suddenly you are doing the impossible.",
       author: 'Francis of Assisi',
-      category: 'Inspirational'
+      category: 'Inspiration'
     },
     {
       id: '4',
       content:
         'There are two ways of spreading light: to be the candle or the mirror that reflects it.',
       author: 'Edith Wharton',
-      category: 'Inspirational'
+      category: 'Inspiration'
     },
     {
       id: '5',
