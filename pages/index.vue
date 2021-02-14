@@ -168,9 +168,9 @@ export default class IndexPage extends Vue {
   /* ------------------------------------
   => Mounted (Lifecycle)
   ------------------------------------ */
-  mounted(): Promise<void> {
+  mounted(): void {
     try {
-      (this as IndexPage).$axios
+      (this as any).$axios
         .post(`https://portal-inspirasi-be.herokuapp.com/graphql`, {
           query: `query {
           hello
