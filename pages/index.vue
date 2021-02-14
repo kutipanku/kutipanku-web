@@ -1,95 +1,52 @@
 <template>
   <v-layout column justify-center align-center>
     <v-flex xs12 sm8 md6>
-      <div class="text-center">
-        <!-- <logo />
-        <vuetify-logo /> -->
-      </div>
-      <v-card>
-        <v-card-title class="headline">
-          Welcome to the Vuetify + Nuxt.js template || {{ greetings }}
+      <v-card dark tile class="home-banner">
+        <v-card-title>
+          <span class="title font-weight-bold">Selamat Pagi!</span> <br />
+          <small class="font-weight-light">Semoga harimu indah :)</small>
         </v-card-title>
-        <v-card-text>
-          <p>
-            Vuetify is a progressive Material Design component framework for
-            Vue.js. It was designed to empower developers to create amazing
-            applications.
-          </p>
-          <p>
-            For more information on Vuetify, check out the
-            <a href="https://vuetifyjs.com" target="_blank"> documentation </a>.
-          </p>
-          <p>
-            If you have questions, please join the official
-            <a href="https://chat.vuetifyjs.com/" target="_blank" title="chat">
-              discord </a
-            >.
-          </p>
-          <p>
-            Find a bug? Report it on the github
-            <a
-              href="https://github.com/vuetifyjs/vuetify/issues"
-              target="_blank"
-              title="contribute"
-            >
-              issue board </a
-            >.
-          </p>
-          <p>
-            Thank you for developing with Vuetify and I look forward to bringing
-            more exciting features in the future.
-          </p>
-          <div class="text-xs-right">
-            <em><small>&mdash; John Leider</small></em>
-          </div>
-          <hr class="my-3" />
-          <p>
-            Vuetify is a progressive Material Design component framework for
-            Vue.js. It was designed to empower developers to create amazing
-            applications.
-          </p>
-          <p>
-            For more information on Vuetify, check out the
-            <a href="https://vuetifyjs.com" target="_blank"> documentation </a>.
-          </p>
-          <p>
-            If you have questions, please join the official
-            <a href="https://chat.vuetifyjs.com/" target="_blank" title="chat">
-              discord </a
-            >.
-          </p>
-          <p>
-            Find a bug? Report it on the github
-            <a
-              href="https://github.com/vuetifyjs/vuetify/issues"
-              target="_blank"
-              title="contribute"
-            >
-              issue board </a
-            >.
-          </p>
-          <p>
-            Thank you for developing with Vuetify and I look forward to bringing
-            more exciting features in the future.
-          </p>
-          <div class="text-xs-right">
-            <em><small>&mdash; John Leider</small></em>
-          </div>
-          <hr class="my-3" />
-          <a href="https://nuxtjs.org/" target="_blank">
-            Nuxt Documentation
-          </a>
-          <br />
-          <a href="https://github.com/nuxt/nuxt.js" target="_blank">
-            Nuxt GitHub
-          </a>
+
+        <v-card-text class="font-weight-bold">
+          “The first step is to establish that something is possible; then
+          probability will occur.”
         </v-card-text>
+
         <v-card-actions>
-          <v-spacer />
-          <v-btn color="primary" nuxt to="/inspire">
-            Continue
-          </v-btn>
+          <v-list-item class="grow">
+            <v-row align="center" justify="end">
+              <v-btn icon class="mr-2">
+                <v-icon>
+                  mdi-emoticon-happy
+                </v-icon>
+              </v-btn>
+            </v-row>
+          </v-list-item>
         </v-card-actions>
+      </v-card>
+    </v-flex>
+    <v-flex xs12 sm8 md6 class="quotes-container">
+      <v-card
+        v-for="(item, i) in quoteList"
+        :key="i"
+        tile
+        class="quote-card pa-2 mt-1 mb-1"
+      >
+        <v-card-text>
+          <v-row>
+            <p align="center">
+              {{ item.content }}
+            </p>
+          </v-row>
+          <v-row align="center" justify="space-between" class="mt-2">
+            <small class="primary--text">
+              {{ item.category }}
+            </small>
+            <span class="font-weight-bold primary--text">
+              - {{ item.author }}
+            </span>
+          </v-row>
+        </v-card-text>
       </v-card>
     </v-flex>
   </v-layout>
@@ -97,14 +54,10 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
-import Logo from '~/components/Logo.vue';
-import VuetifyLogo from '~/components/VuetifyLogo.vue';
+import { Quote } from '../@types';
+import { getHomeQuotes } from '../@utils';
 
 @Component({
-  components: {
-    Logo,
-    VuetifyLogo
-  },
   head(this: IndexPage) {
     const title = 'Kutipanku';
     const meta = [
@@ -210,13 +163,14 @@ export default class IndexPage extends Vue {
   title: string = 'Kutipanku';
   description: string = 'Kumpulan kutipan terlengkap!';
   image: string = `${process.env.DOMAIN_URL}/og-image.png`;
+  quoteList: Quote[] = [];
 
   /* ------------------------------------
   => Mounted (Lifecycle)
   ------------------------------------ */
-  async mounted(): Promise<void> {
+  mounted(): Promise<void> {
     try {
-      await (this as any).$axios
+      (this as IndexPage).$axios
         .post(`https://portal-inspirasi-be.herokuapp.com/graphql`, {
           query: `query {
           hello
@@ -229,6 +183,25 @@ export default class IndexPage extends Vue {
     } catch (err) {
       console.warn(err);
     }
+    this.quoteList = getHomeQuotes();
   }
 }
 </script>
+
+<style lang="stylus" scoped>
+.home-banner {
+  background-image: url(../assets/images/svg/home_ellipse_1.svg), url(../assets/images/svg/home_ellipse_2.svg), url(../assets/images/svg/home_ellipse_3.svg), linear-gradient(246.25deg, #FB6161 0%, #C12C36 98.86%);
+  background-position: bottom right;
+}
+.quote-card {
+  width: 100%;
+  background-image: url(../assets/images/svg/quote-ellipse.svg), url(../assets/images/svg/quote-mark.svg);
+  background-position: left bottom, right top;
+}
+.v-card__text {
+  line-height: 1rem;
+}
+.quotes-container {
+  min-height: 400px;
+}
+</style>
