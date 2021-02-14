@@ -192,6 +192,9 @@ export default class IndexPage extends Vue {
 .home-banner {
   background-image: url(../assets/images/svg/home_ellipse_1.svg), url(../assets/images/svg/home_ellipse_2.svg), url(../assets/images/svg/home_ellipse_3.svg), linear-gradient(246.25deg, #FB6161 0%, #C12C36 98.86%);
   background-position: bottom right;
+  >>> .v-card__text {
+    padding-bottom: 0;
+  }
 }
 .quote-card {
   width: 100%;
