@@ -45,9 +45,9 @@
       </template>
     </v-navigation-drawer>
     <v-main class="background-canvas">
-      <v-layout justify-center>
+      <v-layout justify-center class="full-height">
         <v-flex class="content-wrapper">
-          <v-container class="pa-0">
+          <v-container class="pa-0 full-height">
             <nuxt />
           </v-container>
         </v-flex>
@@ -88,5 +88,8 @@ export default class Default extends Vue {
 }
 .background-canvas {
   padding-left: 56px !important;
+}
+.full-height {
+  height: 100%;
 }
 </style>
