@@ -15,7 +15,7 @@
           </v-layout>
         </v-card-title>
 
-        <v-card-text>
+        <v-card-text class="white--text">
           <v-layout wrap class="daily-quote pa-2">
             <v-flex xs12>
               “The first step is to establish that something is possible; then
@@ -243,6 +243,7 @@ export default class IndexPage extends Vue {
   }
   .daily-quote {
     border: 1px solid var(--v-active-lighten1);
+    border-radius: 3px !important;
   }
 }
 .quote-card {
@@ -251,6 +252,7 @@ export default class IndexPage extends Vue {
   background-position: left bottom, right top;
   .quote-content {
     border: 1px solid var(--v-active-lighten4);
+    border-radius: 3px !important;
   }
 }
 .v-card__text {
