@@ -64,18 +64,12 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
-import { Quote } from '../@types';
 
 @Component
 export default class RandomPage extends Vue {
   /* ------------------------------------
   => Local State Declaration
   ------------------------------------ */
-  greetings: string = '';
-  title: string = 'Kutipanku';
-  description: string = 'Kumpulan kutipan terlengkap!';
-  image: string = `${process.env.DOMAIN_URL}/og-image.png`;
-  quoteList: Quote[] = [];
   showScrollToTop: boolean = false;
 
   /* ------------------------------------
