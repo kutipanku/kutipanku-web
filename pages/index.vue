@@ -41,28 +41,13 @@
       </v-card>
     </v-flex>
     <v-flex xs12 sm8 md6 class="quotes-container">
-      <v-card
+      <QuoteCard
         v-for="(item, i) in quoteList"
         :key="i"
-        tile
-        class="quote-card pa-2 my-1"
-      >
-        <v-card-text class="quote-content pa-5">
-          <v-row>
-            <p align="center">
-              {{ item.content }}
-            </p>
-          </v-row>
-          <v-row align="center" justify="space-between" class="mt-2">
-            <small class="primary--text">
-              {{ item.category }}
-            </small>
-            <span class="font-weight-bold primary--text">
-              - {{ item.author }}
-            </span>
-          </v-row>
-        </v-card-text>
-      </v-card>
+        :content="item.content"
+        :author="item.author"
+        :category="item.category"
+      />
     </v-flex>
     <v-btn
       v-show="showScrollToTop"
@@ -85,6 +70,7 @@
 import { Component, Vue } from 'nuxt-property-decorator';
 import { Quote } from '../@types';
 import { getHomeQuotes } from '../@utils';
+import QuoteCard from '../components/QuoteCard.vue';
 
 @Component({
   head(this: IndexPage) {
@@ -182,6 +168,9 @@ import { getHomeQuotes } from '../@utils';
       meta,
       link
     };
+  },
+  components: {
+    QuoteCard
   }
 })
 export default class IndexPage extends Vue {
@@ -243,15 +232,6 @@ export default class IndexPage extends Vue {
   }
   .daily-quote {
     border: 1px solid var(--v-active-lighten1);
-    border-radius: 3px !important;
-  }
-}
-.quote-card {
-  width: 100%;
-  background-image: url(../assets/images/svg/quote-ellipse.svg), url(../assets/images/svg/quote-mark.svg);
-  background-position: left bottom, right top;
-  .quote-content {
-    border: 1px solid var(--v-active-lighten4);
     border-radius: 3px !important;
   }
 }
