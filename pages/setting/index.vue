@@ -1,0 +1,180 @@
+<template>
+  <v-card tile class="overflow-hidden card-container full-height">
+    <v-layout wrap>
+      <v-app-bar color="primary" class="feedback-banner" dark prominent dense>
+        <v-layout ma-auto px-2>
+          <h5>Pengaturan</h5>
+        </v-layout>
+      </v-app-bar>
+      <v-flex xs12 class="feedback-container" pa-2>
+        <v-layout wrap pa-3>
+          <v-flex xs12>
+            <v-layout>
+              <v-flex xs8 class="align-self-center">
+                <v-layout wrap>
+                  <v-flex xs12 md12 sm12><h3>Mode Gelap</h3></v-flex>
+                </v-layout>
+              </v-flex>
+              <v-flex xs4>
+                <v-switch v-model="darkMode"></v-switch>
+              </v-flex>
+            </v-layout>
+          </v-flex>
+          <v-flex xs12 mb-2>
+            <v-layout>
+              <v-flex xs8 class="align-self-center">
+                <v-layout wrap>
+                  <v-flex xs12 md12 sm12><h3>Bahasa Tampilan</h3></v-flex>
+                </v-layout>
+              </v-flex>
+              <v-flex xs4 text-center>
+                <v-menu offset-y transition="scale-transition">
+                  <template #activator="{ on, attrs }">
+                    <v-btn color="primary" dark v-bind="attrs" v-on="on">
+                      {{ selectedLanguage }}
+                    </v-btn>
+                  </template>
+                  <v-list>
+                    <v-list-item>
+                      <v-list-item-title @click="selectedLanguage = 'ID'"
+                        >ID</v-list-item-title
+                      >
+                    </v-list-item>
+                    <v-list-item>
+                      <v-list-item-title @click="selectedLanguage = 'EN'"
+                        >EN</v-list-item-title
+                      >
+                    </v-list-item>
+                  </v-list>
+                </v-menu>
+              </v-flex>
+            </v-layout>
+          </v-flex>
+          <v-flex xs12 my-2>
+            <v-layout>
+              <v-flex xs8 class="align-self-center">
+                <v-layout wrap>
+                  <v-flex xs12 md12 sm12><h3>Tema Warna</h3></v-flex>
+                </v-layout>
+              </v-flex>
+              <v-flex xs4>
+                <v-menu offset-y transition="scale-transition">
+                  <template #activator="{ on, attrs }">
+                    <v-btn text color="primary" dark v-bind="attrs" v-on="on">
+                      {{
+                        themeColor === 'RED'
+                          ? 'Merah'
+                          : themeColor === 'Green'
+                          ? 'Hijau'
+                          : 'Biru'
+                      }}
+                    </v-btn>
+                  </template>
+                  <v-list>
+                    <v-list-item>
+                      <v-list-item-title @click="themeColor = 'RED'"
+                        >Merah</v-list-item-title
+                      >
+                    </v-list-item>
+                    <v-list-item>
+                      <v-list-item-title @click="themeColor = 'GREEN'"
+                        >Hijau</v-list-item-title
+                      >
+                    </v-list-item>
+                    <v-list-item>
+                      <v-list-item-title @click="themeColor = 'BLUE'"
+                        >Biru</v-list-item-title
+                      >
+                    </v-list-item>
+                  </v-list>
+                </v-menu>
+              </v-flex>
+            </v-layout>
+          </v-flex>
+          <v-flex xs12 my-2>
+            <v-layout>
+              <v-flex xs8 class="align-self-center">
+                <v-layout wrap>
+                  <v-flex xs12 md12 sm12><h3>Ukuran Text</h3></v-flex>
+                </v-layout>
+              </v-flex>
+              <v-flex xs4>
+                <v-menu offset-y transition="scale-transition">
+                  <template #activator="{ on, attrs }">
+                    <v-btn text color="primary" dark v-bind="attrs" v-on="on">
+                      {{
+                        fontSize === 'SMALL'
+                          ? 'Kecil'
+                          : fontSize === 'MEDIUM'
+                          ? 'Sedang'
+                          : 'Besar'
+                      }}
+                    </v-btn>
+                  </template>
+                  <v-list>
+                    <v-list-item>
+                      <v-list-item-title @click="fontSize = 'SMALL'"
+                        >Kecil</v-list-item-title
+                      >
+                    </v-list-item>
+                    <v-list-item>
+                      <v-list-item-title @click="fontSize = 'MEDIUM'"
+                        >Sedang</v-list-item-title
+                      >
+                    </v-list-item>
+                    <v-list-item>
+                      <v-list-item-title @click="fontSize = 'BIG'"
+                        >Besar</v-list-item-title
+                      >
+                    </v-list-item>
+                  </v-list>
+                </v-menu>
+              </v-flex>
+            </v-layout>
+          </v-flex>
+        </v-layout>
+      </v-flex>
+    </v-layout>
+  </v-card>
+</template>
+
+<script lang="ts">
+import { Component, Vue } from 'nuxt-property-decorator';
+
+@Component
+export default class SettingPage extends Vue {
+  /* ------------------------------------
+  => Local State Declaration
+  ------------------------------------ */
+  darkMode: boolean = false;
+  selectedLanguage: string = 'ID';
+  themeColor: string = 'RED';
+  fontSize: string = 'MEDIUM';
+}
+</script>
+
+<style lang="stylus" scoped>
+.feedback-banner {
+  background-image: url(../../assets/images/svg/home_ellipse_1.svg), url(../../assets/images/svg/home_ellipse_2.svg), url(../../assets/images/svg/home_ellipse_3.svg), linear-gradient(246.25deg, #FB6161 0%, #C12C36 98.86%);
+  background-position: bottom right;
+}
+.feedback-container {
+  color: rgba(0, 0, 0, 0.6);
+  letter-spacing: -0.05em;
+}
+.card-container {
+  background-image: url(../../assets/images/svg/information-ellipses.svg);
+  background-position: top left;
+  background-repeat: repeat-y;
+}
+.full-height {
+  height: 100%;
+}
+.full-width {
+  width: 100%;
+}
+* >>> .v-input__slot {
+  place-content: center;
+  text-align: center;
+}
+</style>
