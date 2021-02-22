@@ -39,7 +39,6 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
 import { Quote } from '~/@types';
-import { getHomeQuotes } from '~/@utils';
 import QuoteCard from '~/components/QuoteCard.vue';
 
 @Component({
@@ -53,14 +52,6 @@ export default class FavoritePage extends Vue {
   ------------------------------------ */
   showScrollToTop: boolean = false;
   quoteList: Quote[] = [];
-
-  /* ------------------------------------
-  => Mounted (Lifecycle)
-  ------------------------------------ */
-  mounted(): void {
-    console.warn('Loading Explore Page!');
-    this.quoteList = getHomeQuotes();
-  }
 
   /* ------------------------------------ 
   => Methods

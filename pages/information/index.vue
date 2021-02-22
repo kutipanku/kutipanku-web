@@ -226,7 +226,7 @@ import { Quote } from '~/@types';
 import QuoteCard from '~/components/QuoteCard.vue';
 
 @Component({
-  head(this: IndexPage) {
+  head(this: InformationPage) {
     const title = 'Kutipanku';
     const meta = [
       {
@@ -326,7 +326,7 @@ import QuoteCard from '~/components/QuoteCard.vue';
     QuoteCard
   }
 })
-export default class IndexPage extends Vue {
+export default class InformationPage extends Vue {
   /* ------------------------------------
   => Local State Declaration
   ------------------------------------ */
@@ -405,7 +405,7 @@ export default class IndexPage extends Vue {
   letter-spacing: -0.05em;
   min-height: 400px;
   background-image: url(../../assets/images/svg/information-ellipses.svg);
-  background-position: left;
+  background-position: top left;
   font-weight: normal;
   font-size: 14px;
   line-height: 17px;
