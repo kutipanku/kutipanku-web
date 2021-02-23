@@ -30,7 +30,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: [{ src: '~/plugins/persistedstate', ssr: false }],
   /*
    ** Nuxt.js dev-modules
    */
@@ -43,7 +43,8 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+    'cookie-universal-nuxt'
   ],
   // @nuxtjs/pwa module configuration
   pwa: {
@@ -72,14 +73,16 @@ export default {
       options: { customProperties: true },
       themes: {
         dark: {
-          primary: colors.blue.darken2,
+          primary: '#d74046',
           accent: colors.grey.darken3,
           secondary: colors.amber.darken3,
           info: colors.teal.lighten1,
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
           success: colors.green.accent3,
-          background: colors.grey.lighten2
+          background: colors.grey.darken3,
+          active: '#ffffff',
+          inverse: '#ffffff'
         },
         light: {
           primary: '#d74046',
@@ -90,7 +93,8 @@ export default {
           error: colors.deepOrange.accent4,
           success: colors.green.accent3,
           background: colors.grey.lighten2,
-          active: '#ff6666'
+          active: '#ff6666',
+          inverse: '#ffffff'
         }
       }
     }
