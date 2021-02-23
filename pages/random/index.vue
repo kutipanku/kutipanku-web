@@ -1,7 +1,12 @@
 <template>
   <v-layout column justify-center align-center class="random-page-layout">
     <v-flex xs12 sm8 md6 class="full-height">
-      <v-card dark tile class="random-banner">
+      <v-card
+        :dark="!$vuetify.theme.dark"
+        :light="$vuetify.theme.dark"
+        tile
+        class="random-banner"
+      >
         <v-card-title class="card-header">
           <v-layout wrap>
             <v-flex xs12>
@@ -14,7 +19,7 @@
           </v-layout>
         </v-card-title>
 
-        <v-card-text class="white--text">
+        <v-card-text :class="!$vuetify.theme.dark ? 'white--text' : ''">
           <v-layout wrap class="random-content pa-2">
             <v-flex xs12>
               “The first step is to establish that something is possible; then
@@ -78,10 +83,6 @@ export default class RandomPage extends Vue {
   mounted(): void {
     console.warn('Loading Random Page!');
   }
-
-  /* ------------------------------------ 
-  => Methods
-  ------------------------------------ */
 }
 </script>
 

@@ -1,7 +1,14 @@
 <template>
   <v-card tile class="overflow-hidden card-container full-height">
     <v-layout wrap>
-      <v-app-bar color="primary" class="feedback-banner" dark prominent dense>
+      <v-app-bar
+        color="primary"
+        class="feedback-banner"
+        :dark="!$vuetify.theme.dark"
+        :light="$vuetify.theme.dark"
+        prominent
+        dense
+      >
         <v-layout ma-auto px-2>
           <h5>Saran & Pengaduan</h5>
         </v-layout>
@@ -31,8 +38,10 @@
             ></v-text-field>
           </v-flex>
           <v-flex xs12 text-center mt-3>
-            Kamu tidak harus mencantumkan alamat email, namun jika kamu perlu
-            balasan maka kami akan menghubungimu melalui email tersebut.
+            <p>
+              Kamu tidak harus mencantumkan alamat email, namun jika kamu perlu
+              balasan maka kami akan menghubungimu melalui email tersebut.
+            </p>
           </v-flex>
           <v-flex xs12 text-center my-3>
             <v-btn color="primary" dark class="full-width">
@@ -64,8 +73,10 @@ export default class FeedbackPage extends Vue {
   background-position: bottom right;
 }
 .feedback-container {
-  color: rgba(0, 0, 0, 0.6);
   letter-spacing: -0.05em;
+  p {
+    opacity: 0.6;
+  }
 }
 .card-container {
   background-image: url(../../assets/images/svg/information-ellipses.svg);

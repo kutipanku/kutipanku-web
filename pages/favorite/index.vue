@@ -1,7 +1,14 @@
 <template>
-  <v-card tile class="overflow-hidden">
+  <v-card tile class="overflow-hidden full-height">
     <v-layout wrap>
-      <v-app-bar color="primary" class="explore-banner" dark prominent dense>
+      <v-app-bar
+        color="primary"
+        class="explore-banner"
+        :dark="!$vuetify.theme.dark"
+        :light="$vuetify.theme.dark"
+        prominent
+        dense
+      >
         <v-text-field
           label="Cari"
           placeholder="Kutipan favoritku ..."
@@ -39,6 +46,7 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
 import { Quote } from '~/@types';
+import { getHomeQuotes } from '~/@utils';
 import QuoteCard from '~/components/QuoteCard.vue';
 
 @Component({
@@ -65,6 +73,14 @@ export default class FavoritePage extends Vue {
   toTop(): void {
     this.$vuetify.goTo(0);
   }
+
+  /* ------------------------------------
+  => Mounted (Lifecycle)
+  ------------------------------------ */
+  mounted(): void {
+    console.warn('Loading Explore Page!');
+    this.quoteList = getHomeQuotes();
+  }
 }
 </script>
 
@@ -72,5 +88,8 @@ export default class FavoritePage extends Vue {
 .explore-banner {
   background-image: url(../../assets/images/svg/home_ellipse_1.svg), url(../../assets/images/svg/home_ellipse_2.svg), url(../../assets/images/svg/home_ellipse_3.svg), linear-gradient(246.25deg, #FB6161 0%, #C12C36 98.86%);
   background-position: bottom right;
+}
+.full-height {
+  height: 100%;
 }
 </style>

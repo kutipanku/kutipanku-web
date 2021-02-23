@@ -1,7 +1,14 @@
 <template>
   <v-card tile class="overflow-hidden card-container full-height">
     <v-layout wrap>
-      <v-app-bar color="primary" class="feedback-banner" dark prominent dense>
+      <v-app-bar
+        color="primary"
+        class="feedback-banner"
+        :dark="!$vuetify.theme.dark"
+        :light="$vuetify.theme.dark"
+        prominent
+        dense
+      >
         <v-layout ma-auto px-2>
           <h5>Pengaturan</h5>
         </v-layout>
@@ -12,7 +19,7 @@
             <v-layout>
               <v-flex xs8 class="align-self-center">
                 <v-layout wrap>
-                  <v-flex xs12 md12 sm12><h3>Mode Gelap</h3></v-flex>
+                  <v-flex xs12 md12 sm12><h4>Mode Gelap</h4></v-flex>
                 </v-layout>
               </v-flex>
               <v-flex xs4>
@@ -24,7 +31,7 @@
             <v-layout>
               <v-flex xs8 class="align-self-center">
                 <v-layout wrap>
-                  <v-flex xs12 md12 sm12><h3>Bahasa Tampilan</h3></v-flex>
+                  <v-flex xs12 md12 sm12><h4>Bahasa Tampilan</h4></v-flex>
                 </v-layout>
               </v-flex>
               <v-flex xs4 text-center>
@@ -54,17 +61,17 @@
             <v-layout>
               <v-flex xs8 class="align-self-center">
                 <v-layout wrap>
-                  <v-flex xs12 md12 sm12><h3>Tema Warna</h3></v-flex>
+                  <v-flex xs12 md12 sm12><h4>Tema Warna</h4></v-flex>
                 </v-layout>
               </v-flex>
-              <v-flex xs4>
+              <v-flex xs4 text-center>
                 <v-menu offset-y transition="scale-transition">
                   <template #activator="{ on, attrs }">
                     <v-btn text color="primary" dark v-bind="attrs" v-on="on">
                       {{
                         themeColor === 'RED'
                           ? 'Merah'
-                          : themeColor === 'Green'
+                          : themeColor === 'GREEN'
                           ? 'Hijau'
                           : 'Biru'
                       }}
@@ -95,10 +102,10 @@
             <v-layout>
               <v-flex xs8 class="align-self-center">
                 <v-layout wrap>
-                  <v-flex xs12 md12 sm12><h3>Ukuran Text</h3></v-flex>
+                  <v-flex xs12 md12 sm12><h4>Ukuran Text</h4></v-flex>
                 </v-layout>
               </v-flex>
-              <v-flex xs4>
+              <v-flex xs4 text-center>
                 <v-menu offset-y transition="scale-transition">
                   <template #activator="{ on, attrs }">
                     <v-btn text color="primary" dark v-bind="attrs" v-on="on">
@@ -139,7 +146,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator';
+import { Component, Vue, Watch } from 'nuxt-property-decorator';
 
 @Component
 export default class SettingPage extends Vue {
@@ -150,6 +157,28 @@ export default class SettingPage extends Vue {
   selectedLanguage: string = 'ID';
   themeColor: string = 'RED';
   fontSize: string = 'MEDIUM';
+
+  created(): void {
+    this.darkMode = this.$store.state.ui.darkMode;
+  }
+
+  /* ------------------------------------
+  => Mounted (Lifecycle)
+  ------------------------------------ */
+  // mounted(): void {
+  //   console.warn('Loading Setting Page!');
+  //   this.darkMode = this.$store.state.ui.darkMode;
+  // }
+
+  /* ------------------------------------
+  => Watcher
+  ------------------------------------ */
+  @Watch('darkMode')
+  handleDarkModeChange(newValue: boolean): void {
+    this.$vuetify.theme.dark = newValue;
+    this.$store.dispatch('ui/changeDarkMode', newValue);
+    (this as any).$cookies.set('darkMode', newValue);
+  }
 }
 </script>
 
@@ -159,8 +188,10 @@ export default class SettingPage extends Vue {
   background-position: bottom right;
 }
 .feedback-container {
-  color: rgba(0, 0, 0, 0.6);
   letter-spacing: -0.05em;
+  >>> h4 {
+    opacity: 0.6;
+  }
 }
 .card-container {
   background-image: url(../../assets/images/svg/information-ellipses.svg);

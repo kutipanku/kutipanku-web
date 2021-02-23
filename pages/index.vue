@@ -1,69 +1,78 @@
 <template>
-  <v-layout column justify-center align-center>
-    <v-flex xs12 sm8 md6>
-      <v-card dark tile class="home-banner">
-        <v-card-title>
-          <v-layout wrap>
-            <v-flex xs12
-              ><span class="title font-weight-bold">Selamat Pagi!</span></v-flex
-            >
-            <v-flex xs12 class="greetings"
-              ><small class="font-weight-light"
-                >Semoga harimu indah :)</small
-              ></v-flex
-            >
-          </v-layout>
-        </v-card-title>
+  <v-card tile class="overflow-hidden full-height">
+    <v-layout column justify-center align-center>
+      <v-flex xs12 sm8 md6>
+        <v-card
+          :dark="!$vuetify.theme.dark"
+          :light="$vuetify.theme.dark"
+          tile
+          class="home-banner"
+        >
+          <v-card-title>
+            <v-layout wrap>
+              <v-flex xs12
+                ><span class="title font-weight-bold"
+                  >Selamat Pagi!</span
+                ></v-flex
+              >
+              <v-flex xs12 class="greetings"
+                ><small class="font-weight-light"
+                  >Semoga harimu indah :)</small
+                ></v-flex
+              >
+            </v-layout>
+          </v-card-title>
 
-        <v-card-text class="white--text">
-          <v-layout wrap class="daily-quote pa-2">
-            <v-flex xs12>
-              “The first step is to establish that something is possible; then
-              probability will occur.”
-            </v-flex>
-            <v-flex xs12 class="font-weight-bold mt-2">
-              - Elon Musk
-            </v-flex>
-          </v-layout>
-        </v-card-text>
+          <v-card-text>
+            <v-layout wrap class="daily-quote pa-2">
+              <v-flex xs12>
+                “The first step is to establish that something is possible; then
+                probability will occur.”
+              </v-flex>
+              <v-flex xs12 class="font-weight-bold mt-2">
+                - Elon Musk
+              </v-flex>
+            </v-layout>
+          </v-card-text>
 
-        <v-card-actions>
-          <v-list-item class="grow">
-            <v-row align="center" justify="end">
-              <v-btn icon class="mr-2">
-                <v-icon>
-                  mdi-emoticon-happy
-                </v-icon>
-              </v-btn>
-            </v-row>
-          </v-list-item>
-        </v-card-actions>
-      </v-card>
-    </v-flex>
-    <v-flex xs12 sm8 md6 class="quotes-container">
-      <QuoteCard
-        v-for="(item, i) in quoteList"
-        :key="i"
-        :content="item.content"
-        :author="item.author"
-        :category="item.category"
-      />
-    </v-flex>
-    <v-btn
-      v-show="showScrollToTop"
-      v-scroll="onScroll"
-      fab
-      dark
-      fixed
-      bottom
-      right
-      small
-      color="primary"
-      @click="toTop"
-    >
-      <v-icon small>mdi-arrow-up</v-icon>
-    </v-btn>
-  </v-layout>
+          <v-card-actions>
+            <v-list-item class="grow">
+              <v-row align="center" justify="end">
+                <v-btn icon class="mr-2">
+                  <v-icon>
+                    mdi-emoticon-happy
+                  </v-icon>
+                </v-btn>
+              </v-row>
+            </v-list-item>
+          </v-card-actions>
+        </v-card>
+      </v-flex>
+      <v-flex xs12 sm8 md6 class="quotes-container">
+        <QuoteCard
+          v-for="(item, i) in quoteList"
+          :key="i"
+          :content="item.content"
+          :author="item.author"
+          :category="item.category"
+        />
+      </v-flex>
+      <v-btn
+        v-show="showScrollToTop"
+        v-scroll="onScroll"
+        fab
+        dark
+        fixed
+        bottom
+        right
+        small
+        color="primary"
+        @click="toTop"
+      >
+        <v-icon small>mdi-arrow-up</v-icon>
+      </v-btn>
+    </v-layout>
+  </v-card>
 </template>
 
 <script lang="ts">
@@ -184,6 +193,19 @@ export default class IndexPage extends Vue {
   quoteList: Quote[] = [];
   showScrollToTop: boolean = false;
 
+  /* ------------------------------------ 
+  => Methods
+  ------------------------------------ */
+  onScroll(e: any): void {
+    if (typeof window === 'undefined') return;
+    const top = window.pageYOffset || e.target.scrollTop || 0;
+    this.showScrollToTop = top > 20;
+  }
+
+  toTop(): void {
+    this.$vuetify.goTo(0);
+  }
+
   /* ------------------------------------
   => Mounted (Lifecycle)
   ------------------------------------ */
@@ -204,19 +226,6 @@ export default class IndexPage extends Vue {
     }
     this.quoteList = getHomeQuotes();
   }
-
-  /* ------------------------------------ 
-  => Methods
-  ------------------------------------ */
-  onScroll(e: any): void {
-    if (typeof window === 'undefined') return;
-    const top = window.pageYOffset || e.target.scrollTop || 0;
-    this.showScrollToTop = top > 20;
-  }
-
-  toTop(): void {
-    this.$vuetify.goTo(0);
-  }
 }
 </script>
 
@@ -231,7 +240,7 @@ export default class IndexPage extends Vue {
     margin-top: -8px;
   }
   .daily-quote {
-    border: 1px solid var(--v-active-lighten1);
+    border: 1px solid;
     border-radius: 3px !important;
   }
 }
@@ -240,5 +249,8 @@ export default class IndexPage extends Vue {
 }
 .quotes-container {
   min-height: 400px;
+}
+.full-height {
+  height: 100%;
 }
 </style>
