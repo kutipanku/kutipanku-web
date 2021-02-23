@@ -11,5 +11,6 @@ export interface Quote {
   category: string;
 }
 export interface UiState {
+  darkMode: boolean;
   drawerNavMenu: MenuItem[];
 }
