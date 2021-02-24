@@ -15,6 +15,11 @@ export default {
         hid: 'description',
         name: 'description',
         content: process.env.npm_package_description || ''
+      },
+      {
+        hid: 'google-site-verification',
+        name: 'google-site-verification',
+        content: 'mC2l5-xbFZCDNSBPAaAKm6BXZTJ84gaSd0GS4z8S_z8'
       }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]

@@ -10,7 +10,7 @@
         <v-card-title class="card-header">
           <v-layout wrap>
             <v-flex xs12>
-              <v-tooltip top>
+              <v-tooltip bottom>
                 <template #activator="{ on }">
                   <v-btn icon class="mr-2" v-on="on">
                     <v-icon>
@@ -87,22 +87,22 @@ import { getQuoteById } from '~/@utils';
       {
         hid: 'title',
         name: 'title',
-        content: this.content
+        content: `Quote by ${this.author}`
       },
       {
         hid: 'description',
         name: 'description',
-        content: this.author
+        content: this.content
       },
       {
         hid: 'twitter:title',
         name: 'twitter:title',
-        content: this.content
+        content: `Quote by ${this.author}`
       },
       {
         hid: 'twitter:description',
         name: 'twitter:description',
-        content: this.author
+        content: this.content
       },
       {
         hid: 'twitter:image',
@@ -112,7 +112,7 @@ import { getQuoteById } from '~/@utils';
       {
         hid: 'twitter:image:alt',
         name: 'twitter:image:alt',
-        content: this.content
+        content: `Quote by ${this.author}`
       },
       {
         hid: 'twitter:card',
@@ -122,12 +122,12 @@ import { getQuoteById } from '~/@utils';
       {
         hid: 'og:title',
         property: 'og:title',
-        content: this.content
+        content: `Quote by ${this.author}`
       },
       {
         hid: 'og:description',
         property: 'og:description',
-        content: this.author
+        content: this.content
       },
       {
         hid: 'og:image',
@@ -142,7 +142,7 @@ import { getQuoteById } from '~/@utils';
       {
         hid: 'og:image:alt',
         property: 'og:image:alt',
-        content: this.content
+        content: `Quote by ${this.author}`
       },
       {
         hid: 'og:site_name',
@@ -190,20 +190,24 @@ export default class QuotesDetailPage extends Vue {
   /* ------------------------------------
   => asyncData (Lifecycle)
   ------------------------------------ */
-  // asyncData(): void {
-  //   const quote = getQuoteById(this.id);
-  //   this.content = quote.content;
-  //   this.author = quote.author;
-  // }
+  asyncData(context: any): any {
+    const quote = getQuoteById(context.params.id);
+    return {
+      id: context.params.id,
+      content: quote.content,
+      author: quote.author,
+      image: `${process.env.DOMAIN_URL}/og-image.png`
+    };
+  }
 
   /* ------------------------------------
   => created (Lifecycle)
   ------------------------------------ */
-  created(): void {
-    const quote = getQuoteById(this.id);
-    this.content = quote.content;
-    this.author = quote.author;
-  }
+  // created(): void {
+  //   const quote = getQuoteById(this.id);
+  //   this.content = quote.content;
+  //   this.author = quote.author;
+  // }
 
   /* ------------------------------------
   => fetch (Lifecycle)
