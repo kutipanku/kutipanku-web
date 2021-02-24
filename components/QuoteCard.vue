@@ -1,5 +1,5 @@
 <template>
-  <v-card tile class="quote-card pa-2 my-1">
+  <v-card v-ripple tile class="quote-card pa-2 my-1" @click="goToDetail">
     <v-card-text class="quote-content pa-5">
       <v-row>
         <p align="center">
@@ -28,6 +28,12 @@ export default class QuoteCard extends Vue {
     required: true,
     type: String
   })
+  id!: string;
+
+  @Prop({
+    required: true,
+    type: String
+  })
   content!: string;
 
   @Prop({
@@ -41,6 +47,10 @@ export default class QuoteCard extends Vue {
     type: String
   })
   category!: string;
+
+  goToDetail(): void {
+    this.$router.push(`/quotes/${this.id}`);
+  }
 }
 </script>
 

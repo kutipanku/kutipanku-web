@@ -51,6 +51,7 @@
       <v-flex xs12 sm8 md6 class="quotes-container">
         <QuoteCard
           v-for="(item, i) in quoteList"
+          :id="item.id"
           :key="i"
           :content="item.content"
           :author="item.author"
