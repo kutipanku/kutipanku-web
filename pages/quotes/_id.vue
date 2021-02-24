@@ -80,24 +80,149 @@
 import { Component, Vue } from 'nuxt-property-decorator';
 import { getQuoteById } from '~/@utils';
 
-@Component
+@Component({
+  head(this: QuotesDetailPage) {
+    const title = 'Kutipanku';
+    const meta = [
+      {
+        hid: 'title',
+        name: 'title',
+        content: this.content
+      },
+      {
+        hid: 'description',
+        name: 'description',
+        content: this.author
+      },
+      {
+        hid: 'twitter:title',
+        name: 'twitter:title',
+        content: this.content
+      },
+      {
+        hid: 'twitter:description',
+        name: 'twitter:description',
+        content: this.author
+      },
+      {
+        hid: 'twitter:image',
+        name: 'twitter:image',
+        content: this.image
+      },
+      {
+        hid: 'twitter:image:alt',
+        name: 'twitter:image:alt',
+        content: this.content
+      },
+      {
+        hid: 'twitter:card',
+        name: 'twitter:card',
+        content: 'summary_large_image'
+      },
+      {
+        hid: 'og:title',
+        property: 'og:title',
+        content: this.content
+      },
+      {
+        hid: 'og:description',
+        property: 'og:description',
+        content: this.author
+      },
+      {
+        hid: 'og:image',
+        property: 'og:image',
+        content: this.image
+      },
+      {
+        hid: 'og:image:secure_url',
+        property: 'og:image:secure_url',
+        content: this.image
+      },
+      {
+        hid: 'og:image:alt',
+        property: 'og:image:alt',
+        content: this.content
+      },
+      {
+        hid: 'og:site_name',
+        property: 'og:site_name',
+        content: 'Kutipanku'
+      },
+      {
+        hid: 'og:locale',
+        property: 'og:locale',
+        content: 'id_ID'
+      },
+      {
+        hid: 'og:locale:alternate',
+        property: 'og:locale:alternate',
+        content: 'en_US'
+      },
+      {
+        hid: 'og:url',
+        property: 'og:url',
+        content: process.env.DOMAIN_URL + this.$route.path
+      }
+    ];
+    const link = [
+      {
+        rel: 'canonical',
+        href: process.env.DOMAIN_URL + this.$route.path
+      }
+    ];
+    return {
+      title,
+      meta,
+      link
+    };
+  }
+})
 export default class QuotesDetailPage extends Vue {
   /* ------------------------------------
   => Local State Declaration
   ------------------------------------ */
-  id: string = window.$nuxt.$route.params.id;
+  id: string = this.$nuxt.$route.params.id;
   content: string = '';
   author: string = '';
+  image: string = `${process.env.DOMAIN_URL}/og-image.png`;
 
   /* ------------------------------------
-  => Mounted (Lifecycle)
+  => asyncData (Lifecycle)
   ------------------------------------ */
-  mounted(): void {
-    console.warn("Loading Quote's Detail Page!");
+  // asyncData(): void {
+  //   const quote = getQuoteById(this.id);
+  //   this.content = quote.content;
+  //   this.author = quote.author;
+  // }
+
+  /* ------------------------------------
+  => created (Lifecycle)
+  ------------------------------------ */
+  created(): void {
     const quote = getQuoteById(this.id);
     this.content = quote.content;
     this.author = quote.author;
   }
+
+  /* ------------------------------------
+  => fetch (Lifecycle)
+  ------------------------------------ */
+  // fetch(): void {
+  //   const quote = getQuoteById(this.id);
+  //   this.content = quote.content;
+  //   this.author = quote.author;
+  // }
+
+  /* ------------------------------------
+  => Mounted (Lifecycle)
+  ------------------------------------ */
+  // mounted(): void {
+  //   console.warn("Loading Quote's Detail Page!", this.$route.path);
+  //   const quote = getQuoteById(this.id);
+  //   this.content = quote.content;
+  //   this.author = quote.author;
+  // }
 }
 </script>
 
