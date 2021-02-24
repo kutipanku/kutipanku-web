@@ -69,3 +69,9 @@ export const getQuoteById = (id: string): Quote => {
     return quoteNotFound;
   }
 };
+
+export const getRandomQuote = (): Quote => {
+  const random = Math.floor(Math.random() * quoteList.length);
+  const quote = quoteList[random];
+  return quote;
+};
