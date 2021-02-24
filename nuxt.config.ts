@@ -49,7 +49,8 @@ export default {
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv',
-    'cookie-universal-nuxt'
+    'cookie-universal-nuxt',
+    '@nuxtjs/sitemap'
   ],
   // @nuxtjs/pwa module configuration
   pwa: {
@@ -103,6 +104,10 @@ export default {
         }
       }
     }
+  },
+  sitemap: {
+    hostname: 'https://kutipanku.id',
+    routes: ['/quotes/1', '/quotes/2', '/quotes/3', '/quotes/4', '/quotes/5']
   },
   /*
    ** Build configuration
