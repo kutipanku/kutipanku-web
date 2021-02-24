@@ -19,7 +19,7 @@ export default {
       {
         hid: 'google-site-verification',
         name: 'google-site-verification',
-        content: 'mC2l5-xbFZCDNSBPAaAKm6BXZTJ84gaSd0GS4z8S_z8'
+        content: '96JgKVL4hD45lgoAB2MKKLbS-jbGsbUajQPmTBAGM8A'
       }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
