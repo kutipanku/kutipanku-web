@@ -25,14 +25,14 @@
           </v-layout>
         </v-card-title>
 
-        <v-card-text :class="!$vuetify.theme.dark ? 'white--text' : ''">
+        <v-card-text
+          :class="!$vuetify.theme.dark ? 'white--text' : ''"
+          @click="getNextQuote"
+        >
           <v-layout wrap class="random-content pa-2">
-            <v-flex xs12>
-              “The first step is to establish that something is possible; then
-              probability will occur.”
-            </v-flex>
+            <v-flex xs12> "{{ content }}" </v-flex>
             <v-flex xs12 class="author font-weight-bold mt-4">
-              - Elon Musk
+              - {{ author }}
             </v-flex>
           </v-layout>
         </v-card-text>
@@ -70,7 +70,7 @@
                 </template>
                 <span>Simpan ke Favorit</span>
               </v-tooltip>
-              <v-tooltip top>
+              <!-- <v-tooltip top>
                 <template #activator="{ on }">
                   <v-btn icon class="mr-2" v-on="on">
                     <v-icon>
@@ -79,10 +79,10 @@
                   </v-btn>
                 </template>
                 <span>Sebelumnya</span>
-              </v-tooltip>
+              </v-tooltip> -->
               <v-tooltip top>
                 <template #activator="{ on }">
-                  <v-btn icon class="mr-2" v-on="on">
+                  <v-btn icon class="mr-2" v-on="on" @click="getNextQuote">
                     <v-icon>
                       mdi-arrow-right
                     </v-icon>
@@ -100,19 +100,61 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
+import {
+  generateHeaderMetaTag,
+  generateCanonicalLink,
+  getRandomQuote
+} from '~/@utils';
 
-@Component
+@Component({
+  head(this: RandomPage) {
+    const title = 'Kutipanku';
+    const meta: any = generateHeaderMetaTag(
+      `Quote by ${this.author}`,
+      `"${this.content}"`,
+      this.image,
+      process.env.DOMAIN_URL + this.$route.path
+    );
+    const link: any = generateCanonicalLink(
+      process.env.DOMAIN_URL || '',
+      this.$route.path
+    );
+    return {
+      title,
+      meta,
+      link
+    };
+  }
+})
 export default class RandomPage extends Vue {
   /* ------------------------------------
   => Local State Declaration
   ------------------------------------ */
-  showScrollToTop: boolean = false;
+  id: string = this.$nuxt.$route.params.id;
+  content: string = '';
+  author: string = '';
+  image: string = `${process.env.DOMAIN_URL}/og-image.png`;
 
   /* ------------------------------------
-  => Mounted (Lifecycle)
+  => asyncData (Lifecycle)
   ------------------------------------ */
-  mounted(): void {
-    console.warn('Loading Random Page!');
+  asyncData(context: any): any {
+    const quote = getRandomQuote();
+    return {
+      id: context.params.id,
+      content: quote.content,
+      author: quote.author,
+      image: `${process.env.DOMAIN_URL}/og-image.png`
+    };
+  }
+
+  /* ------------------------------------ 
+  => Methods
+  ------------------------------------ */
+  getNextQuote(): void {
+    const quote = getRandomQuote();
+    this.content = quote.content;
+    this.author = quote.author;
   }
 }
 </script>
