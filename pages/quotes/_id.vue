@@ -10,11 +10,16 @@
         <v-card-title class="card-header">
           <v-layout wrap>
             <v-flex xs12>
-              <v-btn icon class="mr-2">
-                <v-icon>
-                  mdi-menu
-                </v-icon>
-              </v-btn>
+              <v-tooltip top>
+                <template #activator="{ on }">
+                  <v-btn icon class="mr-2" v-on="on">
+                    <v-icon>
+                      mdi-arrow-left
+                    </v-icon>
+                  </v-btn>
+                </template>
+                <span>Kembali</span>
+              </v-tooltip>
             </v-flex>
           </v-layout>
         </v-card-title>
@@ -33,31 +38,36 @@
         <v-card-actions class="card-footer">
           <v-list-item class="grow">
             <v-row align="center" justify="end">
-              <v-btn icon class="mr-2">
-                <v-icon>
-                  mdi-alert
-                </v-icon>
-              </v-btn>
-              <v-btn icon class="mr-2">
-                <v-icon>
-                  mdi-share
-                </v-icon>
-              </v-btn>
-              <v-btn icon class="mr-2">
-                <v-icon>
-                  mdi-star
-                </v-icon>
-              </v-btn>
-              <v-btn icon class="mr-2">
-                <v-icon>
-                  mdi-arrow-left
-                </v-icon>
-              </v-btn>
-              <v-btn icon class="mr-2">
-                <v-icon>
-                  mdi-arrow-right
-                </v-icon>
-              </v-btn>
+              <v-tooltip top>
+                <template #activator="{ on }">
+                  <v-btn icon class="mr-2" v-on="on">
+                    <v-icon>
+                      mdi-alert
+                    </v-icon>
+                  </v-btn>
+                </template>
+                <span>Lapor Kekeliruan</span>
+              </v-tooltip>
+              <v-tooltip top>
+                <template #activator="{ on }">
+                  <v-btn icon class="mr-2" v-on="on">
+                    <v-icon>
+                      mdi-share
+                    </v-icon>
+                  </v-btn>
+                </template>
+                <span>Bagikan</span>
+              </v-tooltip>
+              <v-tooltip top>
+                <template #activator="{ on }">
+                  <v-btn icon class="mr-2" v-on="on">
+                    <v-icon>
+                      mdi-star
+                    </v-icon>
+                  </v-btn>
+                </template>
+                <span>Simpan ke Favorit</span>
+              </v-tooltip>
             </v-row>
           </v-list-item>
         </v-card-actions>

@@ -2,6 +2,7 @@
   <v-layout column justify-center align-center class="random-page-layout">
     <v-flex xs12 sm8 md6 class="full-height">
       <v-card
+        v-ripple
         :dark="!$vuetify.theme.dark"
         :light="$vuetify.theme.dark"
         tile
@@ -10,11 +11,16 @@
         <v-card-title class="card-header">
           <v-layout wrap>
             <v-flex xs12>
-              <v-btn icon class="mr-2">
-                <v-icon>
-                  mdi-menu
-                </v-icon>
-              </v-btn>
+              <v-tooltip bottom>
+                <template #activator="{ on }">
+                  <v-btn icon class="mr-2" v-on="on">
+                    <v-icon>
+                      mdi-menu
+                    </v-icon>
+                  </v-btn>
+                </template>
+                <span>Sembunyikan Navigasi</span>
+              </v-tooltip>
             </v-flex>
           </v-layout>
         </v-card-title>
@@ -34,31 +40,56 @@
         <v-card-actions class="card-footer">
           <v-list-item class="grow">
             <v-row align="center" justify="end">
-              <v-btn icon class="mr-2">
-                <v-icon>
-                  mdi-alert
-                </v-icon>
-              </v-btn>
-              <v-btn icon class="mr-2">
-                <v-icon>
-                  mdi-share
-                </v-icon>
-              </v-btn>
-              <v-btn icon class="mr-2">
-                <v-icon>
-                  mdi-star
-                </v-icon>
-              </v-btn>
-              <v-btn icon class="mr-2">
-                <v-icon>
-                  mdi-arrow-left
-                </v-icon>
-              </v-btn>
-              <v-btn icon class="mr-2">
-                <v-icon>
-                  mdi-arrow-right
-                </v-icon>
-              </v-btn>
+              <v-tooltip top>
+                <template #activator="{ on }">
+                  <v-btn icon class="mr-2" v-on="on">
+                    <v-icon>
+                      mdi-alert
+                    </v-icon>
+                  </v-btn>
+                </template>
+                <span>Lapor Kekeliruan</span>
+              </v-tooltip>
+              <v-tooltip top>
+                <template #activator="{ on }">
+                  <v-btn icon class="mr-2" v-on="on">
+                    <v-icon>
+                      mdi-share
+                    </v-icon>
+                  </v-btn>
+                </template>
+                <span>Bagikan</span>
+              </v-tooltip>
+              <v-tooltip top>
+                <template #activator="{ on }">
+                  <v-btn icon class="mr-2" v-on="on">
+                    <v-icon>
+                      mdi-star
+                    </v-icon>
+                  </v-btn>
+                </template>
+                <span>Simpan ke Favorit</span>
+              </v-tooltip>
+              <v-tooltip top>
+                <template #activator="{ on }">
+                  <v-btn icon class="mr-2" v-on="on">
+                    <v-icon>
+                      mdi-arrow-left
+                    </v-icon>
+                  </v-btn>
+                </template>
+                <span>Sebelumnya</span>
+              </v-tooltip>
+              <v-tooltip top>
+                <template #activator="{ on }">
+                  <v-btn icon class="mr-2" v-on="on">
+                    <v-icon>
+                      mdi-arrow-right
+                    </v-icon>
+                  </v-btn>
+                </template>
+                <span>Selanjutnya</span>
+              </v-tooltip>
             </v-row>
           </v-list-item>
         </v-card-actions>
