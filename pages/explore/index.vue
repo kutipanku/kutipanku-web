@@ -54,10 +54,32 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
 import { Quote } from '~/@types';
-import { getHomeQuotes } from '~/@utils';
+import {
+  generateHeaderMetaTag,
+  generateCanonicalLink,
+  getHomeQuotes
+} from '~/@utils';
 import QuoteCard from '~/components/QuoteCard.vue';
 
 @Component({
+  head(this: ExplorePage) {
+    const title = this.title;
+    const meta: any = generateHeaderMetaTag(
+      this.title,
+      this.description,
+      this.image,
+      process.env.DOMAIN_URL + this.$route.path
+    );
+    const link: any = generateCanonicalLink(
+      process.env.DOMAIN_URL || '',
+      this.$route.path
+    );
+    return {
+      title,
+      meta,
+      link
+    };
+  },
   components: {
     QuoteCard
   }
@@ -66,6 +88,9 @@ export default class ExplorePage extends Vue {
   /* ------------------------------------
   => Local State Declaration
   ------------------------------------ */
+  title: string = 'Jelajahi Kutipan';
+  description: string = 'Temukan kutipan dari seluruh penjuru dunia!';
+  image: string = `${process.env.DOMAIN_URL}/og-image.png`;
   showScrollToTop: boolean = false;
   quoteList: Quote[] = [];
 
@@ -86,7 +111,6 @@ export default class ExplorePage extends Vue {
   => Mounted (Lifecycle)
   ------------------------------------ */
   mounted(): void {
-    console.warn('Loading Explore Page!');
     this.quoteList = getHomeQuotes();
   }
 }

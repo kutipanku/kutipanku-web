@@ -56,14 +56,38 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
+import { generateHeaderMetaTag, generateCanonicalLink } from '~/@utils';
 
-@Component
+@Component({
+  head(this: FeedbackPage) {
+    const title = this.title;
+    const meta: any = generateHeaderMetaTag(
+      this.title,
+      this.description,
+      this.image,
+      process.env.DOMAIN_URL + this.$route.path
+    );
+    const link: any = generateCanonicalLink(
+      process.env.DOMAIN_URL || '',
+      this.$route.path
+    );
+    return {
+      title,
+      meta,
+      link
+    };
+  }
+})
 export default class FeedbackPage extends Vue {
   /* ------------------------------------
   => Local State Declaration
   ------------------------------------ */
+  title: string = 'Kritik dan Saran';
+  image: string = `${process.env.DOMAIN_URL}/og-image.png`;
   feedback: string = '';
   email: string = '';
+  description: string =
+    'Beri masukan applikasi Kutipanku untuk menjadi lebih baik lagi';
 }
 </script>
 

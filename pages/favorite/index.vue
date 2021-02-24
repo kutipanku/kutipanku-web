@@ -47,10 +47,32 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
 import { Quote } from '~/@types';
-import { getHomeQuotes } from '~/@utils';
+import {
+  generateHeaderMetaTag,
+  generateCanonicalLink,
+  getHomeQuotes
+} from '~/@utils';
 import QuoteCard from '~/components/QuoteCard.vue';
 
 @Component({
+  head(this: FavoritePage) {
+    const title = this.title;
+    const meta: any = generateHeaderMetaTag(
+      this.title,
+      this.description,
+      this.image,
+      process.env.DOMAIN_URL + this.$route.path
+    );
+    const link: any = generateCanonicalLink(
+      process.env.DOMAIN_URL || '',
+      this.$route.path
+    );
+    return {
+      title,
+      meta,
+      link
+    };
+  },
   components: {
     QuoteCard
   }
@@ -59,8 +81,12 @@ export default class FavoritePage extends Vue {
   /* ------------------------------------
   => Local State Declaration
   ------------------------------------ */
+  title: string = 'Kumpulan Kutipan Favoritmu';
+  image: string = `${process.env.DOMAIN_URL}/og-image.png`;
   showScrollToTop: boolean = false;
   quoteList: Quote[] = [];
+  description: string =
+    'Simpan kutipan favoritmu dan buka kapan saja ketika kamu mau membacanya lagi';
 
   /* ------------------------------------ 
   => Methods
@@ -79,7 +105,6 @@ export default class FavoritePage extends Vue {
   => Mounted (Lifecycle)
   ------------------------------------ */
   mounted(): void {
-    console.warn('Loading Explore Page!');
     this.quoteList = getHomeQuotes();
   }
 }

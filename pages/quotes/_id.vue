@@ -26,9 +26,7 @@
 
         <v-card-text :class="!$vuetify.theme.dark ? 'white--text' : ''">
           <v-layout wrap class="random-content pa-2">
-            <v-flex xs12>
-              {{ content }}
-            </v-flex>
+            <v-flex xs12> "{{ content }}" </v-flex>
             <v-flex xs12 class="author font-weight-bold mt-4">
               - {{ author }}
             </v-flex>
@@ -78,99 +76,25 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
-import { getQuoteById } from '~/@utils';
+import {
+  generateHeaderMetaTag,
+  generateCanonicalLink,
+  getQuoteById
+} from '~/@utils';
 
 @Component({
   head(this: QuotesDetailPage) {
     const title = 'Kutipanku';
-    const meta = [
-      {
-        hid: 'title',
-        name: 'title',
-        content: `Quote by ${this.author}`
-      },
-      {
-        hid: 'description',
-        name: 'description',
-        content: this.content
-      },
-      {
-        hid: 'twitter:title',
-        name: 'twitter:title',
-        content: `Quote by ${this.author}`
-      },
-      {
-        hid: 'twitter:description',
-        name: 'twitter:description',
-        content: this.content
-      },
-      {
-        hid: 'twitter:image',
-        name: 'twitter:image',
-        content: this.image
-      },
-      {
-        hid: 'twitter:image:alt',
-        name: 'twitter:image:alt',
-        content: `Quote by ${this.author}`
-      },
-      {
-        hid: 'twitter:card',
-        name: 'twitter:card',
-        content: 'summary_large_image'
-      },
-      {
-        hid: 'og:title',
-        property: 'og:title',
-        content: `Quote by ${this.author}`
-      },
-      {
-        hid: 'og:description',
-        property: 'og:description',
-        content: this.content
-      },
-      {
-        hid: 'og:image',
-        property: 'og:image',
-        content: this.image
-      },
-      {
-        hid: 'og:image:secure_url',
-        property: 'og:image:secure_url',
-        content: this.image
-      },
-      {
-        hid: 'og:image:alt',
-        property: 'og:image:alt',
-        content: `Quote by ${this.author}`
-      },
-      {
-        hid: 'og:site_name',
-        property: 'og:site_name',
-        content: 'Kutipanku'
-      },
-      {
-        hid: 'og:locale',
-        property: 'og:locale',
-        content: 'id_ID'
-      },
-      {
-        hid: 'og:locale:alternate',
-        property: 'og:locale:alternate',
-        content: 'en_US'
-      },
-      {
-        hid: 'og:url',
-        property: 'og:url',
-        content: process.env.DOMAIN_URL + this.$route.path
-      }
-    ];
-    const link = [
-      {
-        rel: 'canonical',
-        href: process.env.DOMAIN_URL + this.$route.path
-      }
-    ];
+    const meta: any = generateHeaderMetaTag(
+      `Quote by ${this.author}`,
+      `"${this.content}"`,
+      this.image,
+      process.env.DOMAIN_URL + this.$route.path
+    );
+    const link: any = generateCanonicalLink(
+      process.env.DOMAIN_URL || '',
+      this.$route.path
+    );
     return {
       title,
       meta,
@@ -199,34 +123,6 @@ export default class QuotesDetailPage extends Vue {
       image: `${process.env.DOMAIN_URL}/og-image.png`
     };
   }
-
-  /* ------------------------------------
-  => created (Lifecycle)
-  ------------------------------------ */
-  // created(): void {
-  //   const quote = getQuoteById(this.id);
-  //   this.content = quote.content;
-  //   this.author = quote.author;
-  // }
-
-  /* ------------------------------------
-  => fetch (Lifecycle)
-  ------------------------------------ */
-  // fetch(): void {
-  //   const quote = getQuoteById(this.id);
-  //   this.content = quote.content;
-  //   this.author = quote.author;
-  // }
-
-  /* ------------------------------------
-  => Mounted (Lifecycle)
-  ------------------------------------ */
-  // mounted(): void {
-  //   console.warn("Loading Quote's Detail Page!", this.$route.path);
-  //   const quote = getQuoteById(this.id);
-  //   this.content = quote.content;
-  //   this.author = quote.author;
-  // }
 }
 </script>
 

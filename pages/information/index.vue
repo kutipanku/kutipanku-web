@@ -237,99 +237,22 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
 import { Quote } from '~/@types';
+import { generateHeaderMetaTag, generateCanonicalLink } from '~/@utils';
 import QuoteCard from '~/components/QuoteCard.vue';
 
 @Component({
   head(this: InformationPage) {
-    const title = 'Kutipanku';
-    const meta = [
-      {
-        hid: 'title',
-        name: 'title',
-        content: this.title
-      },
-      {
-        hid: 'description',
-        name: 'description',
-        content: this.description
-      },
-      {
-        hid: 'twitter:title',
-        name: 'twitter:title',
-        content: this.title
-      },
-      {
-        hid: 'twitter:description',
-        name: 'twitter:description',
-        content: this.description
-      },
-      {
-        hid: 'twitter:image',
-        name: 'twitter:image',
-        content: this.image
-      },
-      {
-        hid: 'twitter:image:alt',
-        name: 'twitter:image:alt',
-        content: this.title
-      },
-      {
-        hid: 'twitter:card',
-        name: 'twitter:card',
-        content: 'summary_large_image'
-      },
-      {
-        hid: 'og:title',
-        property: 'og:title',
-        content: this.title
-      },
-      {
-        hid: 'og:description',
-        property: 'og:description',
-        content: this.description
-      },
-      {
-        hid: 'og:image',
-        property: 'og:image',
-        content: this.image
-      },
-      {
-        hid: 'og:image:secure_url',
-        property: 'og:image:secure_url',
-        content: this.image
-      },
-      {
-        hid: 'og:image:alt',
-        property: 'og:image:alt',
-        content: this.title
-      },
-      {
-        hid: 'og:site_name',
-        property: 'og:site_name',
-        content: 'Kutipanku'
-      },
-      {
-        hid: 'og:locale',
-        property: 'og:locale',
-        content: 'id_ID'
-      },
-      {
-        hid: 'og:locale:alternate',
-        property: 'og:locale:alternate',
-        content: 'en_US'
-      },
-      {
-        hid: 'og:url',
-        property: 'og:url',
-        content: process.env.DOMAIN_URL + this.$route.path
-      }
-    ];
-    const link = [
-      {
-        rel: 'canonical',
-        href: process.env.DOMAIN_URL + this.$route.path
-      }
-    ];
+    const title = this.title;
+    const meta: any = generateHeaderMetaTag(
+      this.title,
+      this.description,
+      this.image,
+      process.env.DOMAIN_URL + this.$route.path
+    );
+    const link: any = generateCanonicalLink(
+      process.env.DOMAIN_URL || '',
+      this.$route.path
+    );
     return {
       title,
       meta,

@@ -35,7 +35,7 @@
                 </v-layout>
               </v-flex>
               <v-flex xs4 text-center>
-                <v-menu offset-y transition="scale-transition">
+                <v-menu offset-y transition="scale-transition" disabled>
                   <template #activator="{ on, attrs }">
                     <v-btn color="primary" dark v-bind="attrs" v-on="on">
                       {{ selectedLanguage }}
@@ -65,7 +65,7 @@
                 </v-layout>
               </v-flex>
               <v-flex xs4 text-center>
-                <v-menu offset-y transition="scale-transition">
+                <v-menu offset-y transition="scale-transition" disabled>
                   <template #activator="{ on, attrs }">
                     <v-btn text color="primary" dark v-bind="attrs" v-on="on">
                       {{
@@ -106,7 +106,7 @@
                 </v-layout>
               </v-flex>
               <v-flex xs4 text-center>
-                <v-menu offset-y transition="scale-transition">
+                <v-menu offset-y transition="scale-transition" disabled>
                   <template #activator="{ on, attrs }">
                     <v-btn text color="primary" dark v-bind="attrs" v-on="on">
                       {{
@@ -147,12 +147,35 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from 'nuxt-property-decorator';
+import { generateHeaderMetaTag, generateCanonicalLink } from '~/@utils';
 
-@Component
+@Component({
+  head(this: SettingPage) {
+    const title = this.title;
+    const meta: any = generateHeaderMetaTag(
+      this.title,
+      this.description,
+      this.image,
+      process.env.DOMAIN_URL + this.$route.path
+    );
+    const link: any = generateCanonicalLink(
+      process.env.DOMAIN_URL || '',
+      this.$route.path
+    );
+    return {
+      title,
+      meta,
+      link
+    };
+  }
+})
 export default class SettingPage extends Vue {
   /* ------------------------------------
   => Local State Declaration
   ------------------------------------ */
+  title: string = 'Pengaturan Applikasi Kutipanku';
+  description: string = 'Sesuaikan applikasi Kutipanku dengan keinginanmu';
+  image: string = `${process.env.DOMAIN_URL}/og-image.png`;
   darkMode: boolean = false;
   selectedLanguage: string = 'ID';
   themeColor: string = 'RED';
