@@ -30,9 +30,13 @@
           @click="getNextQuote"
         >
           <v-layout wrap class="random-content pa-2">
-            <v-flex xs12> "{{ content }}" </v-flex>
+            <v-flex xs12>
+              "{{
+                quoteLanguage === 'ID' ? quote.content.id : quote.content.en
+              }}"
+            </v-flex>
             <v-flex xs12 class="author font-weight-bold mt-4">
-              - {{ author }}
+              - {{ quote.author }}
             </v-flex>
           </v-layout>
         </v-card-text>
@@ -105,13 +109,20 @@ import {
   generateCanonicalLink,
   getRandomQuote
 } from '~/@utils';
+import { Quote } from '~/@types';
 
 @Component({
   head(this: RandomPage) {
     const title = 'Kutipanku';
     const meta: any = generateHeaderMetaTag(
-      `Quote by ${this.author}`,
-      `"${this.content}"`,
+      `${this.quoteLanguage === 'id' ? 'Kutipan dari' : 'Quote by'} ${
+        this.quote.author
+      }`,
+      `"${
+        this.quoteLanguage === 'id'
+          ? this.quote.content.id
+          : this.quote.content.en
+      }"`,
       this.image,
       process.env.DOMAIN_URL + this.$route.path
     );
@@ -131,9 +142,24 @@ export default class RandomPage extends Vue {
   => Local State Declaration
   ------------------------------------ */
   id: string = this.$nuxt.$route.params.id;
-  content: string = '';
-  author: string = '';
   image: string = `${process.env.DOMAIN_URL}/og-image.png`;
+  quote: Quote = {
+    id: '',
+    category: '',
+    author: '',
+    content: {
+      id: '',
+      en: ''
+    }
+  };
+
+  /* ------------------------------------
+  => Setter and Getter
+  ** (Adopt store variables to local state)
+  ------------------------------------ */
+  get quoteLanguage(): string {
+    return this.$store.state.ui.quoteLanguage;
+  }
 
   /* ------------------------------------
   => asyncData (Lifecycle)
@@ -142,8 +168,7 @@ export default class RandomPage extends Vue {
     const quote = getRandomQuote();
     return {
       id: context.params.id,
-      content: quote.content,
-      author: quote.author,
+      quote,
       image: `${process.env.DOMAIN_URL}/og-image.png`
     };
   }
@@ -153,8 +178,7 @@ export default class RandomPage extends Vue {
   ------------------------------------ */
   getNextQuote(): void {
     const quote = getRandomQuote();
-    this.content = quote.content;
-    this.author = quote.author;
+    this.quote = quote;
   }
 }
 </script>

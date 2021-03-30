@@ -3,7 +3,7 @@
     <v-card-text class="quote-content pa-5">
       <v-row>
         <p align="center">
-          {{ content }}
+          "{{ quoteLanguage === 'ID' ? content.id : content.en }}"
         </p>
       </v-row>
       <v-row align="center" justify="space-between" class="mt-2">
@@ -18,6 +18,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'nuxt-property-decorator';
+import { QuoteContent } from '~/@types';
 
 @Component
 export default class QuoteCard extends Vue {
@@ -32,9 +33,9 @@ export default class QuoteCard extends Vue {
 
   @Prop({
     required: true,
-    type: String
+    type: Object
   })
-  content!: string;
+  content!: QuoteContent;
 
   @Prop({
     required: true,
@@ -48,8 +49,19 @@ export default class QuoteCard extends Vue {
   })
   category!: string;
 
+  /* ------------------------------------
+  => Setter and Getter
+  ** (Adopt store variables to local state)
+  ------------------------------------ */
+  get quoteLanguage(): string {
+    return this.$store.state.ui.quoteLanguage;
+  }
+
+  /* ------------------------------------ 
+  => Methods
+  ------------------------------------ */
   goToDetail(): void {
-    this.$router.push(`/quotes/${this.id}`);
+    this.$router.push(`/quotes/${this.id}?lang=${this.quoteLanguage}`);
   }
 }
 </script>

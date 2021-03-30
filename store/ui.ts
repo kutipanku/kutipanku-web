@@ -5,6 +5,8 @@ import Store, { UiState } from '../@types';
   ----------------------------------------------- */
 export const state = (): UiState => ({
   darkMode: false,
+  quoteLanguage: 'id',
+  displayLanguage: 'id',
   drawerNavMenu: [
     {
       icon: 'mdi-home',
@@ -50,6 +52,9 @@ export const state = (): UiState => ({
 export const mutations = {
   setDarkMode(state: UiState, param: boolean): void {
     state.darkMode = param;
+  },
+  setQuoteLanguage(state: UiState, param: string): void {
+    state.quoteLanguage = param;
   }
 };
 
@@ -59,5 +64,11 @@ export const mutations = {
 export const actions: any = {
   changeDarkMode(store: Store<UiState> | any, param: boolean): void {
     store.commit('setDarkMode', param);
+  },
+  changeSelectedQuoteLanguage(
+    store: Store<UiState> | any,
+    param: string
+  ): void {
+    store.commit('setQuoteLanguage', param);
   }
 };

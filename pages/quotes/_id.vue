@@ -12,7 +12,7 @@
             <v-flex xs12>
               <v-tooltip bottom>
                 <template #activator="{ on }">
-                  <v-btn icon class="mr-2" v-on="on">
+                  <v-btn icon class="mr-2" v-on="on" @click="back">
                     <v-icon>
                       mdi-arrow-left
                     </v-icon>
@@ -26,9 +26,16 @@
 
         <v-card-text :class="!$vuetify.theme.dark ? 'white--text' : ''">
           <v-layout wrap class="random-content pa-2">
-            <v-flex xs12> "{{ content }}" </v-flex>
+            <v-flex v-if="translateTo !== ''" xs12>
+              "{{ translateTo === 'id' ? quote.content.id : quote.content.en }}"
+            </v-flex>
+            <v-flex v-else xs12>
+              "{{
+                languageQuery === 'id' ? quote.content.id : quote.content.en
+              }}"
+            </v-flex>
             <v-flex xs12 class="author font-weight-bold mt-4">
-              - {{ author }}
+              - {{ quote.author }}
             </v-flex>
           </v-layout>
         </v-card-text>
@@ -66,6 +73,16 @@
                 </template>
                 <span>Simpan ke Favorit</span>
               </v-tooltip>
+              <v-tooltip top>
+                <template #activator="{ on }">
+                  <v-btn icon class="mr-2" v-on="on" @click="doTranslate">
+                    <v-icon>
+                      mdi-translate
+                    </v-icon>
+                  </v-btn>
+                </template>
+                <span>Terjemahkan</span>
+              </v-tooltip>
             </v-row>
           </v-list-item>
         </v-card-actions>
@@ -81,13 +98,24 @@ import {
   generateCanonicalLink,
   getQuoteById
 } from '~/@utils';
+import { Quote } from '~/@types';
 
 @Component({
   head(this: QuotesDetailPage) {
-    const title = 'Kutipanku';
+    const title = `Kutipanku | "${
+      this.languageQuery === 'id'
+        ? this.quote.content.id
+        : this.quote.content.en
+    }" -${this.quote.author}`;
     const meta: any = generateHeaderMetaTag(
-      `Quote by ${this.author}`,
-      `"${this.content}"`,
+      `${this.languageQuery === 'id' ? 'Kutipan dari' : 'Quote by'} ${
+        this.quote.author
+      }`,
+      `"${
+        this.languageQuery === 'id'
+          ? this.quote.content.id
+          : this.quote.content.en
+      }"`,
       this.image,
       process.env.DOMAIN_URL + this.$route.path
     );
@@ -106,10 +134,19 @@ export default class QuotesDetailPage extends Vue {
   /* ------------------------------------
   => Local State Declaration
   ------------------------------------ */
+  translateTo: string = '';
+  languageQuery: string = '';
   id: string = this.$nuxt.$route.params.id;
-  content: string = '';
-  author: string = '';
   image: string = `${process.env.DOMAIN_URL}/og-image.png`;
+  quote: Quote = {
+    id: '',
+    category: '',
+    author: '',
+    content: {
+      id: '',
+      en: ''
+    }
+  };
 
   /* ------------------------------------
   => asyncData (Lifecycle)
@@ -117,11 +154,32 @@ export default class QuotesDetailPage extends Vue {
   asyncData(context: any): any {
     const quote = getQuoteById(context.params.id);
     return {
+      languageQuery: context.query.lang,
       id: context.params.id,
-      content: quote.content,
-      author: quote.author,
+      quote,
       image: `${process.env.DOMAIN_URL}/og-image.png`
     };
+  }
+
+  /* ------------------------------------ 
+  => Methods
+  ------------------------------------ */
+  back(): void {
+    this.$router.back();
+  }
+
+  doTranslate(): void {
+    if (this.translateTo) {
+      if (this.translateTo === 'id') {
+        this.translateTo = 'en';
+      } else {
+        this.translateTo = 'id';
+      }
+    } else if (this.languageQuery === 'id') {
+      this.translateTo = 'en';
+    } else {
+      this.translateTo = 'id';
+    }
   }
 }
 </script>
