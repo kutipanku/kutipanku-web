@@ -31,6 +31,36 @@
             <v-layout>
               <v-flex xs8 class="align-self-center">
                 <v-layout wrap>
+                  <v-flex xs12 md12 sm12><h4>Bahasa Kutipan</h4></v-flex>
+                </v-layout>
+              </v-flex>
+              <v-flex xs4 text-center>
+                <v-menu offset-y transition="scale-transition">
+                  <template #activator="{ on, attrs }">
+                    <v-btn color="primary" dark v-bind="attrs" v-on="on">
+                      {{ selectedQuoteLanguage }}
+                    </v-btn>
+                  </template>
+                  <v-list>
+                    <v-list-item>
+                      <v-list-item-title @click="selectedQuoteLanguage = 'id'"
+                        >ID</v-list-item-title
+                      >
+                    </v-list-item>
+                    <v-list-item>
+                      <v-list-item-title @click="selectedQuoteLanguage = 'en'"
+                        >EN</v-list-item-title
+                      >
+                    </v-list-item>
+                  </v-list>
+                </v-menu>
+              </v-flex>
+            </v-layout>
+          </v-flex>
+          <v-flex xs12 mb-2>
+            <v-layout>
+              <v-flex xs8 class="align-self-center">
+                <v-layout wrap>
                   <v-flex xs12 md12 sm12><h4>Bahasa Tampilan</h4></v-flex>
                 </v-layout>
               </v-flex>
@@ -177,12 +207,14 @@ export default class SettingPage extends Vue {
   description: string = 'Sesuaikan applikasi Kutipanku dengan keinginanmu';
   image: string = `${process.env.DOMAIN_URL}/og-image.png`;
   darkMode: boolean = false;
-  selectedLanguage: string = 'ID';
+  selectedQuoteLanguage: string = 'id';
+  selectedLanguage: string = 'id';
   themeColor: string = 'RED';
   fontSize: string = 'MEDIUM';
 
   created(): void {
     this.darkMode = this.$store.state.ui.darkMode;
+    this.selectedQuoteLanguage = this.$store.state.ui.quoteLanguage;
   }
 
   /* ------------------------------------
@@ -201,6 +233,14 @@ export default class SettingPage extends Vue {
     this.$vuetify.theme.dark = newValue;
     this.$store.dispatch('ui/changeDarkMode', newValue);
     (this as any).$cookies.set('darkMode', newValue);
+  }
+
+  @Watch('selectedQuoteLanguage')
+  handleSelectedQuoteLanguageChange(newValue: string): void {
+    if (newValue) {
+      this.$store.dispatch('ui/changeSelectedQuoteLanguage', newValue);
+      (this as any).$cookies.set('quoteLanguage', newValue);
+    }
   }
 }
 </script>
