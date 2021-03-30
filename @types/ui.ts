@@ -4,13 +4,20 @@ export interface MenuItem {
   to?: string;
 }
 
+export interface QuoteContent {
+  en: string;
+  id: string;
+}
+
 export interface Quote {
   id: string;
-  content: string;
+  content: QuoteContent;
   author: string;
   category: string;
 }
 export interface UiState {
   darkMode: boolean;
+  quoteLanguage: string;
+  displayLanguage: string;
   drawerNavMenu: MenuItem[];
 }
